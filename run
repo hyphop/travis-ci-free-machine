@@ -26,6 +26,8 @@ aria2c \
 
 echo "[i] OK"
 
+echo "[i] what next ??? )))) "
+
 exit 0
 
 
