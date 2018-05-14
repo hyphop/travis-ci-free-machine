@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "[i] $0 $@"
+
+#on_download_complete ./hook 89424dd13b7d9208 2 /tmp/Nochnye_igry_2018_WEB-DLRip_iT_by_Dalemake/Nochnye_igry_2018_WEB-DLRip_iT_by_Dalemake.avi
+
+    killall aria2c
+
+    echo "[i] $3 ready"
+    F="$3"
+    [ -f "$F" ] && {
+	ls -l1 $F
+	echo "[i] MD5sum "
+	md5sum "$F"
+#	ffmpeg -i "$F" -y "$F.mkv"
+    }
+
+
+

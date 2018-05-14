@@ -1,0 +1,8 @@
+#!/bin/sh
+
+echo "[i] $0 $@"
+
+# on_download_complete ./hook d6af31063cf600ad 0
+
+echo "[i] bt ok"
+
