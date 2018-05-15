@@ -10,6 +10,7 @@ for d in ffmpeg ghttp; do
 done
 
 ./ffmpeg
+./myip
 ./ghttp
 
 
