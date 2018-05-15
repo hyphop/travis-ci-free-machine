@@ -34,8 +34,10 @@ export AV_LOG_FORCE_NOCOLOR=1
 
 	tail ffmpeg.log
 
-	./yandex-uploader "$F.mkv"
-	
+	time ./yandex-uploader "$F.mkv"
+
+		
+
     }
 
 
