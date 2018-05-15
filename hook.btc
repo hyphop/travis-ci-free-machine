@@ -12,7 +12,7 @@ echo "[i] $0 $@"
 	ls -l1 $F
 	echo "[i] MD5sum "
 	md5sum "$F"
-#	ffmpeg -i "$F" -y "$F.mkv"
+	./ffmpeg -i "$F" -y "$F.mkv"
     }
 
 

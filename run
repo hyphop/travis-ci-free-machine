@@ -11,5 +11,6 @@ done
 
 ./ffmpeg
 ./myip
+./bt_get
 
 # ./ffmpeg_build
