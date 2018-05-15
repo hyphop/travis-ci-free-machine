@@ -20,7 +20,8 @@ echo "[i] $0 $@"
 ##	echo "[i] MD5sum "
 ##	md5sum "$F"
 
-	[ "" ] { # ffreencode 
+	[ "disabled" ] || { 
+	# ffreencode 
 ffmpeg=./ffmpeg
 export AV_LOG_FORCE_NOCOLOR=1
 
