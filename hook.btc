@@ -3,7 +3,7 @@
 watch_progress(){
     while [ "1" ] ; do 
     ls -l1 "$1"
-    sleep 5
+    sleep 10
     done
 }
 
@@ -36,7 +36,7 @@ export AV_LOG_FORCE_NOCOLOR=1
 
 	time ./yandex-uploader "$F.mkv"
 
-		
+	
 
     }
 

@@ -1,0 +1,23 @@
+#!/bin/sh
+
+## hyphop ##
+
+#
+# yandex free uploader account
+#
+
+SHARE=https://yadi.sk/d/4SnxJHDi3VwaPU
+
+src=https://webdav.yandex.com
+
+F="$1"
+echo "[i] download $F"
+
+out="$1"
+#out="$2"
+
+[ "$out" ] || exit 0
+
+curl -C - -# -v -L --basic --header "Authorization: Basic YWNjMHVudC5mcmVlOm9rZmNua3V4cm9penR5emQ=" \
+--output $out \
+    "$src/FREE/$F"
