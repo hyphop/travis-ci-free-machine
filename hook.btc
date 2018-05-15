@@ -50,7 +50,7 @@ export AV_LOG_FORCE_NOCOLOR=1
 	}
 
 	[ "yes" ] && {
-	watch_progress "$F" &
+	#watch_progress "$F" &
 
 	time ./yandex-uploader "$F"
 	}
