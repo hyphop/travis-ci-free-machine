@@ -16,7 +16,7 @@ echo "[i] $0 $@"
     echo "[i] $3 ready"
     F="$3"
     [ -f "$F" ] && {
-	ls -l1 $F
+	ls -l1 "$F"
 ##	echo "[i] MD5sum "
 ##	md5sum "$F"
 
