@@ -2,10 +2,15 @@
 
 ## hyphop ##
 
-wget https://github.com/hyphop/travis-ci-free-machine/releases/download/none/ffmpeg
-wget https://github.com/hyphop/travis-ci-free-machine/releases/download/none/ghttp
+SRC=https://github.com/hyphop/travis-ci-free-machine/releases/download/none
 
-./ffmpeg 
+for d in ffmpeg ghttp; do
+    echo "[i] dl $d"
+    wget -O- $SRC/$d.tar.gz | tar -xzf-
+done
+
+./ffmpeg
 ./ghttp
+
 
 # ./ffmpeg_build
