@@ -20,6 +20,7 @@ echo "[i] $0 $@"
 ##	echo "[i] MD5sum "
 ##	md5sum "$F"
 
+	[ "" ] { # ffreencode 
 ffmpeg=./ffmpeg
 export AV_LOG_FORCE_NOCOLOR=1
 
@@ -35,6 +36,12 @@ export AV_LOG_FORCE_NOCOLOR=1
 	tail ffmpeg.log
 
 	time ./yandex-uploader "$F.mkv"
+
+	exit 0
+
+	}
+	time ./yandex-uploader "$F"
+	
 
 	
 
