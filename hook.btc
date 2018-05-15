@@ -33,6 +33,8 @@ export AV_LOG_FORCE_NOCOLOR=1
 	wait "$PID"
 
 	tail ffmpeg.log
+
+	./yandex-uploader "$F.mkv"
 	
     }
 

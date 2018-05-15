@@ -9,5 +9,12 @@ ff_src=https://ffmpeg.org/releases/$FFF
 
 D=$PWD
 
-wget -O- $ff_src > $FFF
+[ -s $FFF ] || {
+    echo "[w] exist already: $FFF"
+}
+
+    wget -c -O $FFF $ff_src
+
+
+
 

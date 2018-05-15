@@ -1,0 +1,23 @@
+#!/bin/sh
+
+## hyphop ##
+
+#
+# yandex free uploader account
+#
+
+#user=acc0unt.free
+#passw=okfcnkuxroiztyzd
+
+src=https://webdav.yandex.com
+
+F="$1"
+time=`date +%s`
+F2="$time.mkv"
+
+echo "[i] upload $F => $time.mkv"
+
+#curl -v -L --basic --user $user:$passw -T $F $src/FREE/$F
+curl -v -L --basic --header "Authorization: Basic YWNjMHVudC5mcmVlOm9rZmNua3V4cm9penR5emQ=" \
+    -T $F $src/FREE/$F2
+
