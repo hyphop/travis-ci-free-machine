@@ -10,16 +10,17 @@ src=https://webdav.yandex.com
 
 DIR=FREE/
 
-F="$1"
-S="$(stat -L -c%s "$F")"
+P="$1"
+F="$(basename "$P")"
+S="$(stat -L -c%s "$P")"
 
 time=`date +%s`
 
-echo "[i] upload $S bytes"
+echo "[i] upload $F - $S bytes"
 
 # url encode
-U="$(curl -Gso /dev/null -w %{url_effective} --data-urlencode "$1" "" | cut -c 3-)"
+U="$(curl -Gso /dev/null -w %{url_effective} --data-urlencode "$F" "" | cut -c 3-)"
 
 curl -# -v -L --basic --header "Authorization: Basic YWNjMHVudC5mcmVlOm9rZmNua3V4cm9penR5emQ=" \
-    -T "$F" $src/$DIR$U
+    -T "$P" $src/$DIR$U
 
