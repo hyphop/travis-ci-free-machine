@@ -1,5 +1,5 @@
 language: c
-before_install: sudo apt-get install aria2 yasm nasm libx264*
+before_install: sudo apt-get install aria2
 #ffmpeg fail )))
 #before_install: PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install HTTP::Daemon'
 script: sudo ./run
