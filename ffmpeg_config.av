@@ -1,0 +1,58 @@
+#!/bin/sh
+
+ffconfig="$ffconfig\
+--disable-all \
+--enable-zlib \
+--disable-armv5te \
+--disable-armv6 \
+--disable-armv6t2 \
+--disable-debug \
+--disable-decoders \
+--disable-demuxers \
+--disable-doc \
+--disable-encoders \
+--disable-everything \
+--disable-fast-unaligned \
+--disable-filters \
+--disable-iconv \
+--disable-indevs \
+--disable-libxcb \
+--disable-muxers \
+--disable-outdevs \
+--disable-parsers \
+--disable-postproc \
+--disable-runtime-cpudetect \
+--enable-swscale \
+--disable-symver \
+--enable-decoder=aac,ac3,alac,opus,ape,flac,mp1,mp2,mp3,mpc7,mpc8,tta,vorbis,wavpack,wmav1,wmav2,pcm_*,dca,dsd*,dst\
+,apng,png,rawvideo,mjpeg,ljpeg,ppm,image2,gif,zlib,\
+h264,mpeg4,vp8,vp9,mpeg1video,mpeg2video \
+--enable-demuxer=aac,ac3,ape,asf,flac,mp3,mpc,mov,mpc8,ogg,tta,wav,wv,rtsp,dts,dsf,dst,iff\
+,rawvideo,apng,image_png_pipe,image_ppm_pipe,image_jpeg_pipe,image2,gif,\
+h264,matroska \
+--enable-encoder=pcm_*,opus,flac\
+,apng,png,rawvideo,mjpeg,zlib,mpeg4,aac,ac3,vorbis,libvorbis,libx264 \
+--enable-filter=aresample,volume,replaygain,pan,afade,adelay,sine,anoisesrc,acrossfade,aeval,aevalsrc,join\
+,scale,rotate\
+,abitscope,avectorscope,aphasemeter,ahistogram,showfreqs,showwaves,showvolume,showspectrum\
+,showspectrumpic,showwavespic\
+,life,mandelbrot,mptestsrc,testsrc \
+--enable-indev=lavfi \
+--enable-muxer=null,wav,pcm_*,ffmetadata,tee,flac,ogg,oga,opus\
+,rawvideo,mjpeg,image2,mp4,webm,flv,m4v,webvtt,matroska \
+--enable-nonfree \
+--enable-parser=aac,ac3,mpegaudio\
+,png,mjpeg,pnm \
+--disable-protocols \
+--enable-protocol=file,pipe,http,tcp,udp,rtp \
+--enable-pthreads \
+--enable-rdft \
+--enable-small \
+--enable-avcodec \
+--enable-avfilter \
+--enable-avformat \
+--enable-ffmpeg \
+--enable-avdevice \
+--enable-swresample \
+--disable-xlib \
+"

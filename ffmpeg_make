@@ -1,0 +1,9 @@
+#!/bin/sh
+
+## hyphop ##
+
+cd ffmpeg-*
+
+echo "[i] $0 make"
+
+make -j 16

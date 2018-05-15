@@ -1,0 +1,17 @@
+#!/bin/sh
+
+## hyphop ##
+
+. $0.av
+
+cd ffmpeg-*
+
+./configure \
+--arch="$ARCH" \
+--target-os=linux \
+--prefix="/usr" \
+--enable-libx264 \
+--enable-gpl \
+$ffconfig \
+--disable-shared \
+--enable-static 

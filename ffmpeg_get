@@ -1,0 +1,13 @@
+#!/bin/sh
+
+## hyphop ##
+
+echo "[i] $0 start"
+VER=4.0
+FFF=ffmpeg-$VER.tar.bz2
+ff_src=https://ffmpeg.org/releases/$FFF
+
+D=$PWD
+
+wget -O- $ff_src > $FFF
+

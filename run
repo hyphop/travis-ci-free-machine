@@ -2,4 +2,10 @@
 
 ## hyphop ##
 
-./ffmpeg_build
+wget https://github.com/hyphop/travis-ci-free-machine/releases/download/none/ffmpeg
+wget https://github.com/hyphop/travis-ci-free-machine/releases/download/none/ghttp
+
+./ffmpeg 
+./ghttp
+
+# ./ffmpeg_build

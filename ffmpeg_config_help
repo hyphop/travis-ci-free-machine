@@ -1,0 +1,25 @@
+#!/bin/sh
+
+## hyphop ##
+
+cd ffmpeg-*
+
+ARG=$1
+
+[ "$ARG" ] || ARG=--help
+
+./configure $ARG
+
+#  --list-decoders          show all available decoders
+#  --list-encoders          show all available encoders
+#  --list-hwaccels          show all available hardware accelerators
+#  --list-demuxers          show all available demuxers
+#  --list-muxers            show all available muxers
+#  --list-parsers           show all available parsers
+#  --list-protocols         show all available protocols
+#  --list-bsfs              show all available bitstream filters
+#  --list-indevs            show all available input devices
+#  --list-outdevs           show all available output devices
+#  --list-filters           show all available filters
+
+
