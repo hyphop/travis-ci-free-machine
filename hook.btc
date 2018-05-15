@@ -1,5 +1,12 @@
 #!/bin/sh
 
+watch_progress(){
+    while [ "1" ] ; do 
+    ls -l1 "$1"
+    sleep 5
+    done
+}
+
 echo "[i] $0 $@"
 
 #on_download_complete ./hook 89424dd13b7d9208 2 /tmp/Nochnye_igry_2018_WEB-DLRip_iT_by_Dalemake/Nochnye_igry_2018_WEB-DLRip_iT_by_Dalemake.avi
@@ -10,10 +17,23 @@ echo "[i] $0 $@"
     F="$3"
     [ -f "$F" ] && {
 	ls -l1 $F
-	echo "[i] MD5sum "
-	md5sum "$F"
-	./ffmpeg -loglevel info -hide_banner \
-		-i "$F" -acodec aac -ac 2 -y "$F.mkv"
+##	echo "[i] MD5sum "
+##	md5sum "$F"
+
+ffmpeg=./ffmpeg
+export AV_LOG_FORCE_NOCOLOR=1
+
+	$ffmpeg -loglevel info -hide_banner \
+		-i "$F" -acodec aac -ac 2 -y "$F.mkv" </dev/null >ffmpeg.log 2>&1 & PID=$!
+
+	sleep 1
+
+	watch_progress "$F.mkv" &
+
+	wait "$PID"
+
+	tail ffmpeg.log
+	
     }
 
 
