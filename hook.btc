@@ -40,6 +40,7 @@ export AV_LOG_FORCE_NOCOLOR=1
 	exit 0
 
 	}
+
 	time ./yandex-uploader "$F"
 	
 
