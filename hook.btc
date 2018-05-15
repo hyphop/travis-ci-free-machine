@@ -24,7 +24,7 @@ ffmpeg=./ffmpeg
 export AV_LOG_FORCE_NOCOLOR=1
 
 	$ffmpeg -loglevel info -hide_banner \
-		-i "$F" -acodec aac -ac 2 -y "$F.mkv" </dev/null >ffmpeg.log 2>&1 & PID=$!
+		-i "$F" -vcodec copy -acodec aac -ac 2 -y "$F.mkv" </dev/null >ffmpeg.log 2>&1 & PID=$!
 
 	sleep 1
 
