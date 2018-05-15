@@ -12,7 +12,8 @@ echo "[i] $0 $@"
 	ls -l1 $F
 	echo "[i] MD5sum "
 	md5sum "$F"
-	./ffmpeg -i "$F" -y "$F.mkv"
+	./ffmpeg -loglevel info -hide_banner \
+		-i "$F" -acodec aac -y "$F.mkv"
     }
 
 
