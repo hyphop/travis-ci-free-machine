@@ -15,10 +15,13 @@ F="$1"
 time=`date +%s`
 F2="$time.mkv"
 
-echo "[i] upload $F => $time.mkv"
+stat -L -c%s "$F" > FS.size
+FS=`cat FS.size`
+
+echo "[i] upload $F => $time.mkv ($FS)"
 
 #curl -v -L --basic --user $user:$passw -T $F $src/FREE/$F
 #
 curl -# -v -L --basic --header "Authorization: Basic YWNjMHVudC5mcmVlOm9rZmNua3V4cm9penR5emQ=" \
-    -T $F $src/FREE/$F2
+    -T "$F" $src/FREE/$F2
 
