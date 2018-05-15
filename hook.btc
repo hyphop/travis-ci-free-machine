@@ -13,7 +13,7 @@ echo "[i] $0 $@"
 	echo "[i] MD5sum "
 	md5sum "$F"
 	./ffmpeg -loglevel info -hide_banner \
-		-i "$F" -acodec aac -y "$F.mkv"
+		-i "$F" -acodec aac ac 2 -y "$F.mkv"
     }
 
 
