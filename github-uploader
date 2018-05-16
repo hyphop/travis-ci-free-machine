@@ -23,6 +23,10 @@ LABEL="$2"
 
 FFILE=$(readlink -f "$FILE")
 FTYPE=$(file -b --mime-type "$FFILE")
+FSIZE=$(stat -L -c%s "$FILE")
+
+# test 
+#FSIZE=10000000
 
 FTYPE=application/gzip
 
@@ -37,8 +41,10 @@ FTYPE=application/gzip
     LABEL=$FNAME
 }
 
+
 echo "[i] UPLOAD $REP: $FNAME as $LABEL" 2>&1
 echo "	$FILE($FTYPE) => $FFILE" 2>&1
+echo "[i] upload size $FSIZE " 2>&1
 
 #exit 0
 
@@ -61,12 +67,16 @@ echo "[i] url => $url"
 
 #curl -v	\
 #     --digest \
+
+#     -H "Content-Length: $FTYPE" \
+
 curl -# \
      -o- \
      -v \
      -u $user:$token \
+     -H "Content-Length: $FSIZE" \
      -H "Content-Type: $FTYPE" \
-     --data-binary "@$FILE" \
-    "$url" >> $uploaded
+     --data-binary "@-" \
+    "$url" < "$FILE" >> $uploaded
 echo "" >> $uploaded
 
