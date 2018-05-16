@@ -9,7 +9,7 @@ for d in ffmpeg ; do
     wget -O- $SRC/$d.tar.gz | tar -xzf-
 done
 
-./ffmpeg
+#./ffmpeg
 ./myip
 ./bt_get
 
