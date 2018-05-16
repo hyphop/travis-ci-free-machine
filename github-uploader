@@ -73,6 +73,8 @@ echo "[i] url => $url"
 curl="curl"
 #     -H "Transfer-Encoding: chunked" \
 
+$curl --version
+
 $curl -# \
      -o- \
      -v \
