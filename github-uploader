@@ -30,11 +30,12 @@ FTYPE=application/gzip
     FNAME=$(basename $FILE)
 }
 
+
+FNAME="$FNAME.gz"
+
 [ "$LABEL" ] || {
     LABEL=$FNAME
 }
-
-FNAME="$FNAME.gz"
 
 echo "[i] UPLOAD $REP: $FNAME as $LABEL" 2>&1
 echo "	$FILE($FTYPE) => $FFILE" 2>&1
@@ -47,7 +48,7 @@ echo "	$FILE($FTYPE) => $FFILE" 2>&1
 #}
 
 url="https://uploads.github.com/repos/$user/$REP/releases/$ID/assets?name=$FNAME&label=$LABEL"
-echo $url
+echo "[i] url => $url"
 
 #curl -v --write-out %{size_request} \
 #    -H "Content-Type: application/octet-stream" \
@@ -64,6 +65,6 @@ curl -# \
      -u $user:$token \
      -H "Content-Type: $FTYPE" \
      --data-binary \@$FILE \
-    $url >> $uploaded
+    "$url" >> $uploaded
 echo "" >> $uploaded
 
