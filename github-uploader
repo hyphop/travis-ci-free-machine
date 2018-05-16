@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## hyphop ##
 
@@ -6,7 +6,7 @@ REP=share
 ID=11019630
 uploaded=.uploaded
 user=free-acc0unt
-token=084fb90dc35f55b2f3f6a383b053b46877a8a793
+token=991580c933f12c6cdaaf87a7fa30f2cae0b329bc
 
 FILE=$1
 LABEL=$2
@@ -30,7 +30,7 @@ FTYPE=application/gzip
     LABEL=$FNAME
 }
 
-$FNAME="$FNAME.gz"
+FNAME="$FNAME.gz"
 
 echo "[i] UPLOAD $REP: $FNAME as $LABEL" 2>&1
 echo "	$FILE($FTYPE) => $FFILE" 2>&1
