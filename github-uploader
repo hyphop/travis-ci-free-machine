@@ -35,7 +35,7 @@ FTYPE=application/gzip
 }
 
 
-#FNAME="$FNAME.gz"
+FNAME="$FNAME.gz"
 
 [ "$LABEL" ] || {
     LABEL=$FNAME
@@ -68,16 +68,19 @@ echo "[i] url => $url"
 #curl -v	\
 #     --digest \
 
-#     -H "Content-Length: $FTYPE" \
 
-cat "$FILE" | curl -# \
+curl="curl"
+#     -H "Transfer-Encoding: chunked" \
+
+$curl -# \
      -o- \
      -v \
-    --no-buffer \
+     --no-buffer \
      -u $user:$token \
      -H "Content-Length: $FSIZE" \
      -H "Content-Type: $FTYPE" \
-     --data-binary "@-" \
+    --upload-file "$FILE" \
     "$url" >> $uploaded
+
 echo "" >> $uploaded
 
