@@ -6,7 +6,7 @@ REP=share
 ID=11019630
 uploaded=.uploaded
 user=free-acc0unt
-token=991580c933f12c6cdaaf87a7fa30f2cae0b329bc
+token=f9f61cd5cfafd496f3e04f145ed8ca49694f17bf
 
 FILE=$1
 LABEL=$2
