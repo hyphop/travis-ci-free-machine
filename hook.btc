@@ -54,7 +54,7 @@ export AV_LOG_FORCE_NOCOLOR=1
 
 	time ./yandex-uploader "$F"
 
-	./yandex-downloader2
+	./yandex-share show
 
 	}
 
