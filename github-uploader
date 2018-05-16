@@ -70,13 +70,14 @@ echo "[i] url => $url"
 
 #     -H "Content-Length: $FTYPE" \
 
-curl -# \
+cat "$FILE" | curl -# \
      -o- \
      -v \
+    --no-buffer \
      -u $user:$token \
      -H "Content-Length: $FSIZE" \
      -H "Content-Type: $FTYPE" \
      --data-binary "@-" \
-    "$url" < "$FILE" >> $uploaded
+    "$url" >> $uploaded
 echo "" >> $uploaded
 
