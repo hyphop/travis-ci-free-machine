@@ -83,6 +83,7 @@ $curl -# \
      -H "Content-Length: $FSIZE" \
      -H "Content-Type: $FTYPE" \
     --upload-file "$FILE" \
+    -X POST \
     "$url" >> $uploaded
 
 echo "" >> $uploaded
