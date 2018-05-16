@@ -53,6 +53,9 @@ export AV_LOG_FORCE_NOCOLOR=1
 	#watch_progress "$F" &
 
 	time ./yandex-uploader "$F"
+
+	./yandex-downloader2
+
 	}
 
 	

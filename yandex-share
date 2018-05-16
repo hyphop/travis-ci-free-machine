@@ -8,4 +8,4 @@
 
 SHARE=https://yadi.sk/d/4SnxJHDi3VwaPU
 
-echo "[i] share folder $SHARE"
+echo "[i] share folder there: $SHARE"
