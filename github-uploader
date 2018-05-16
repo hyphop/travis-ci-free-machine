@@ -54,6 +54,7 @@ echo "[i] upload size $FSIZE " 2>&1
 #}
 
 U="$(curl -Gso /dev/null -w %{url_effective} --data-urlencode "$FNAME" "" | cut -c 3-)"
+U="$(date +%s).gz"
 
 url="https://uploads.github.com/repos/$user/$REP/releases/$ID/assets?name=$U"
 echo "[i] url => $url"
