@@ -1,0 +1,65 @@
+#!/bin/bash
+
+## hyphop ##
+
+REP=share
+ID=11019630
+uploaded=.uploaded
+user=free-acc0unt
+token=084fb90dc35f55b2f3f6a383b053b46877a8a793
+
+FILE=$1
+LABEL=$2
+
+[ -f "$FILE" ] || {
+    echo "[e] not found $FILE" 1>&2
+    exit 1
+}
+
+
+FFILE=$(readlink -f $FILE)
+FTYPE=$(file -b --mime-type $FFILE)
+
+FTYPE=application/gzip
+
+[ "$FNAME" ] || {
+    FNAME=$(basename $FILE)
+}
+
+[ "$LABEL" ] || {
+    LABEL=$FNAME
+}
+
+$FNAME="$FNAME.gz"
+
+echo "[i] UPLOAD $REP: $FNAME as $LABEL" 2>&1
+echo "	$FILE($FTYPE) => $FFILE" 2>&1
+
+#exit 0
+
+#grep $FNAME .files && {
+#    echo "[e] file already uploaded" 1>&2
+#    exit 1
+#}
+
+url="https://uploads.github.com/repos/$user/$REP/releases/$ID/assets?name=$FNAME&label=$LABEL"
+echo $url
+
+#curl -v --write-out %{size_request} \
+#    -H "Content-Type: application/octet-stream" \
+#    --data-binary \@${FILE} \
+#    $url
+
+# -H "Authorization: token $token" \
+
+#curl -v	\
+#     --digest \
+curl -# \
+     -o- \
+     -v \
+     -u $user:$token \
+     -H "Content-Type: $FTYPE" \
+     --data-binary \@$FILE \
+    $url >> $uploaded
+echo "" >> $uploaded
+
