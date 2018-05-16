@@ -9,8 +9,8 @@ user=free-acc0unt
 token=7ce74c89a66
 token="${token}8e026470a824b24dddad403c10b07"
 
-echo $token
-exit 0 
+#echo $token
+#exit 0 
 
 FILE=$1
 LABEL=$2
