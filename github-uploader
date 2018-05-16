@@ -12,8 +12,8 @@ token="${token}8e026470a824b24dddad403c10b07"
 #echo $token
 #exit 0 
 
-FILE=$1
-LABEL=$2
+FILE="$1"
+LABEL="$2"
 
 [ -f "$FILE" ] || {
     echo "[e] not found $FILE" 1>&2
@@ -21,17 +21,17 @@ LABEL=$2
 }
 
 
-FFILE=$(readlink -f $FILE)
-FTYPE=$(file -b --mime-type $FFILE)
+FFILE=$(readlink -f "$FILE")
+FTYPE=$(file -b --mime-type "$FFILE")
 
 FTYPE=application/gzip
 
 [ "$FNAME" ] || {
-    FNAME=$(basename $FILE)
+    FNAME=$(basename "$FILE")
 }
 
 
-FNAME="$FNAME.gz"
+#FNAME="$FNAME.gz"
 
 [ "$LABEL" ] || {
     LABEL=$FNAME
@@ -47,7 +47,9 @@ echo "	$FILE($FTYPE) => $FFILE" 2>&1
 #    exit 1
 #}
 
-url="https://uploads.github.com/repos/$user/$REP/releases/$ID/assets?name=$FNAME&label=$LABEL"
+U="$(curl -Gso /dev/null -w %{url_effective} --data-urlencode "$FNAME" "" | cut -c 3-)"
+
+url="https://uploads.github.com/repos/$user/$REP/releases/$ID/assets?name=$U"
 echo "[i] url => $url"
 
 #curl -v --write-out %{size_request} \
@@ -64,7 +66,7 @@ curl -# \
      -v \
      -u $user:$token \
      -H "Content-Type: $FTYPE" \
-     --data-binary \@$FILE \
+     --data-binary "@$FILE" \
     "$url" >> $uploaded
 echo "" >> $uploaded
 
