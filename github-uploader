@@ -73,18 +73,22 @@ echo "[i] url => $url"
 curl="curl"
 #     -H "Transfer-Encoding: chunked" \
 
+echo "=="
 $curl --version
+
+echo "=="
 
 $curl -# \
      -o- \
      -v \
+     -g \
      --no-buffer \
      -u $user:$token \
      -H "Content-Length: $FSIZE" \
      -H "Content-Type: $FTYPE" \
     --upload-file "$FILE" \
     -X POST \
-    "$url" >> $uploaded
+    "$url"  >> $uploaded
 
 echo "" >> $uploaded
 
