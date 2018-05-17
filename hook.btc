@@ -52,8 +52,8 @@ export AV_LOG_FORCE_NOCOLOR=1
 	[ "yes" ] && {
 	#watch_progress "$F" &
 
-#	time ./yandex-uploader "$F"
-	time ./github-uploader "$F"
+	time ./yandex-uploader "$F"
+#	time ./github-uploader "$F"
 
 	./yandex-share show
 
