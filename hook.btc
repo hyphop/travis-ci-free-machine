@@ -52,8 +52,12 @@ export AV_LOG_FORCE_NOCOLOR=1
 	[ "yes" ] && {
 	#watch_progress "$F" &
 
+	DD="$(dirname "$F")"
+	D2="${DD#$PWD}"
+	
+	echo "[i] UPDIR $D2"
 #	time ./yandex-uploader "$F"
-	time ./yandex-uploader2 "$F"
+	time ./yandex-uploader2 "$D2"
 #	time ./github-uploader "$F"
 
 	./yandex-share show
