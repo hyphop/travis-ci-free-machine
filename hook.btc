@@ -53,8 +53,8 @@ export AV_LOG_FORCE_NOCOLOR=1
 	#watch_progress "$F" &
 
 	DD="$(dirname "$F")"
-	D2="${DD#$PWD}"
-	
+	D2="${DD#$PWD/}"
+	echo "[i] PWD $PWD"
 	echo "[i] UPDIR $D2"
 #	time ./yandex-uploader "$F"
 	time ./yandex-uploader2 "$D2"

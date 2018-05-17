@@ -14,7 +14,7 @@ DIR=FREE/
 P="$1"
 
 [ -d "$P" ] || {
-    echo "[i] is not file" >&2
+    echo "[i] is not dir" >&2
     exit 1
 }
 
