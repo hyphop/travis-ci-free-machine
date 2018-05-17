@@ -46,7 +46,7 @@ LIST=/tmp/up.curl
 
 echo "" > $LIST
 
-find $F -type d | while read d ; do
+find "$F" -type d | while read d ; do
 echo "[i] mkdir $d"
 echo "url = \"$src/$DIR$(urlencode "$d")\"" >> $LIST
 done
@@ -63,7 +63,7 @@ curl -#\
 echo "" > $LIST
 
 [ "1" ] && {
-find $F -type f | while read f ; do
+find "$F" -type f | while read f ; do
 S="$(stat -L -c%s "$f")"
 echo "[i] up $f ($S bytes)"
 echo "upload-file = \"$f\"
