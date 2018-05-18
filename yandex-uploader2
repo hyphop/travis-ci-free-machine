@@ -18,6 +18,8 @@ F="$1"
     exit 1
 }
 
+echo "[i] UP DIR => $F"
+
 H=`cat $0-pw.conf`
 H=${H%\ /}
 
