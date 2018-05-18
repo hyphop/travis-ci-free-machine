@@ -1,0 +1,137 @@
+#!/bin/sh
+
+## hyphop ##
+
+PROG="$(basename "$0")"
+
+about(){
+
+echo "
+# Yandex Disk Uploader
+
+easy way to upload files on yandex drive
+
+# USAGE 
+
+    $PROG [DIR|FILE]
+
+# CONFIG
+
+    ~/.$PROG.conf
+    ./$PROG.conf
+
+its simple curl config format
+configure user:password credential there 
+
+# CONFIG EXAMPLES
+
+    -H "Authorization: Basic YWNjasdasdMHVudC5mcmt3Z2Z2tsYWJvcWs="
+    or
+    -u user:password
+
+# SOURCE
+
+https://github.com/hyphop/yandex-disk-uploader
+
+# REQUIRED
+
+no deps, only cURL
+"
+
+}
+#verbose="-v"
+
+[ "$DIR" ] || DIR=""
+
+src=https://webdav.yandex.com
+
+for a in "$@" ; do
+case $a in
+    -h|--help)
+    about
+    exit 0
+    ;;
+esac
+done
+
+F="$1"
+
+[ -e "$F" ] || {
+    echo "[e] not exist source" >&2
+    about
+    exit 1
+}
+
+echo "[i] upload source => $F => $DIR"
+
+for CNF in  \
+    ~/".$PROG.conf" \
+    "$0.conf" \
+    "$PROG.conf"
+do
+#    echo "[i] chk cfg $CNF" >&2
+
+    [ -e $CNF ] && {
+	echo "[i] read config $CNF" >&2
+	break;
+    }
+    CNF=""
+done
+
+[ "$CNF" ] || {
+    echo -n "[e] config not found: "
+    about | grep "\.conf"
+    exit 1
+}
+
+
+urlencode(){
+# url encode
+    echo "$(curl -Gso /dev/null -w %{url_effective} --data-urlencode "$1" "" | cut -c 3-)"
+}
+
+
+readdir(){
+cat "$CNF"
+find "$1" -type d | while read d ; do
+echo "[i] $d" >&2
+echo "url = \"$src/$DIR$(urlencode "$d")\"" 
+done
+}
+
+readfiles(){
+cat "$CNF"
+find "$1" -type f | while read f ; do
+S="$(stat -L -c%s "$f")"
+echo "[i] $f ($S bytes)" >&2
+echo "upload-file = \"$f\"
+url = \"$src/$DIR$(urlencode "$f")\"
+"
+done
+}
+
+echo "[i] UPLOAD DIRS" >&2
+
+readdir "$F" | curl -# \
+    $verbose -o- \
+    -g \
+    -L \
+    -X MKCOL \
+    -K- > /dev/null || {
+    echo "[e] curl fail" >&2
+}
+
+echo "[i] UPLOAD FILES" >&2
+
+readfiles "$F" | curl -# \
+    $verbose -o- \
+    -g \
+    -L \
+    -X PUT \
+    -K- > /dev/null || {
+    echo "[e] curl fail" >&2
+}
+
+# exit 0
+
+

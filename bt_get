@@ -17,9 +17,14 @@ echo "[i] MAGNET CHK"
 
 curl -s "http://bt.t-ru.org/ann?magnet" | hd
 
-aria2c \
-    --dht-file-path=/tmp/aria2.4.dht \
-    --dht-file-path6=/tmp/aria2.6.dht \
+
+ariacnf="$ariacnf --enable-dht=false"
+ariacnf="$ariacnf --enable-dht6=false"
+ariacnf="$ariacnf --disable-ipv6=true"
+ariacnf="$ariacnf --dht-file-path=/tmp/aria2.4.dht"
+ariacnf="$ariacnf --dht-file-path6=/tmp/aria2.6.dht"
+
+aria2c $ariacnf \
     --on-bt-download-complete="./hook.btc" \
     "$url"
 
