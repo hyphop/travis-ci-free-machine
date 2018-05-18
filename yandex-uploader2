@@ -46,7 +46,7 @@ echo "[i] mkdir $d"
 echo "url = \"$src/$DIR$(urlencode "$d")\"" >> $LIST
 done
 
-verbose="-v"
+#verbose="-v"
 
 curl -#\
     $verbose -o - \
