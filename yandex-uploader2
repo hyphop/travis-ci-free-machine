@@ -13,7 +13,7 @@ DIR=FREE/
 
 F="$1"
 
-[ -d "$F" ] || {
+[ -e "$F" ] || {
     echo "[i] is not dir" >&2
     exit 1
 }
@@ -39,7 +39,7 @@ urlencode(){
 
 LIST=/tmp/up.curl
 
-echo "" > $LIST
+rm $LIST
 
 find "$F" -type d | while read d ; do
 echo "[i] mkdir $d"
@@ -47,7 +47,7 @@ echo "url = \"$src/$DIR$(urlencode "$d")\"" >> $LIST
 done
 
 #verbose="-v"
-
+[ -s $LIST ] && { 
 curl -#\
     $verbose -o - \
     -g \
@@ -56,7 +56,9 @@ curl -#\
     -H "$H" \
     -K $LIST > /dev/null
 
-echo "" > $LIST
+rm $LIST
+
+}
 
 [ "1" ] && {
 find "$F" -type f | while read f ; do
@@ -69,6 +71,7 @@ done
 
 }
 
+[ -s $LIST ] && {
 curl -#\
     $verbose -o - \
     -g \
@@ -76,6 +79,8 @@ curl -#\
     -X PUT \
     -H "$H" \
     -K $LIST > /dev/null
+
+}
 #exit 0
 
 

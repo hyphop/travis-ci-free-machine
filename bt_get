@@ -29,6 +29,8 @@ echo "[i] MAGNET CHK"
 curl -s "http://bt.t-ru.org/ann?magnet" | hd
 
 aria2c \
+    --dht-file-path=/tmp/aria2.4.dht \
+    --dht-file-path6=/tmp/aria2.6.dht \
     --on-bt-download-complete="./hook.btc" \
     "$url"
 

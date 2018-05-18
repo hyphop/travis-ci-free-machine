@@ -52,9 +52,15 @@ export AV_LOG_FORCE_NOCOLOR=1
 	[ "yes" ] && {
 	#watch_progress "$F" &
 
-	DD="$(dirname "$F")"
-	D2="${DD#$PWD/}"
-	D3="${D2%/*}"
+    BASE="$PWD"
+    RP="${F#$BASE/}"
+    DN="$(dirname "$RP")"
+    BN="$(basename "$RP")"
+    D3="${DN%/*}"
+
+    [ "$DN" = "." ] && {
+    D3="$BN"
+    }
 
 	echo "[i] UPDIR $D3"
 
