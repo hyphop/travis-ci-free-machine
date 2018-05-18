@@ -23,6 +23,11 @@ echo "[e] link not defined"
 exit 1
 }
 
+
+echo "[i] MAGNET CHK"
+
+curl -s "http://bt.t-ru.org/ann?magnet" | hd
+
 aria2c \
     --on-bt-download-complete="./hook.btc" \
     "$url"
