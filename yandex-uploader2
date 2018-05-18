@@ -11,19 +11,12 @@ src=https://webdav.yandex.com
 
 DIR=FREE/
 
-P="$1"
+F="$1"
 
-[ -d "$P" ] || {
+[ -d "$F" ] || {
     echo "[i] is not dir" >&2
     exit 1
 }
-
-F="$(basename "$P")"
-
-
-time=`date +%s`
-
-#echo "[i] upload $F - $S bytes" >&2
 
 H=`cat $0-pw.conf`
 H=${H%\ /}

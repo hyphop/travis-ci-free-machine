@@ -54,8 +54,10 @@ export AV_LOG_FORCE_NOCOLOR=1
 
 	DD="$(dirname "$F")"
 	D2="${DD#$PWD/}"
-	echo "[i] PWD $PWD"
-	echo "[i] UPDIR $D2"
+	D3="${DD%/*}"
+
+	echo "[i] UPDIR $D3"
+
 #	time ./yandex-uploader "$F"
 	time ./yandex-uploader2 "$D2"
 #	time ./github-uploader "$F"
