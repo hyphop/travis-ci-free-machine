@@ -2,11 +2,21 @@
 
 ## hyphop ##
 
-url=`cat $0.link`
+url=`cat $0.link 2>/dev/null`
 
-echo "[i] bt link $url"
+[ -s "bt_get.linkup" ] && {
+    [ "$(cat bt_get.linkup)" ] && {
+	echo "[i] get shared link" >&2
+	url=`./bt_get.show_get_link`
+    }
+}
 
-#exit 0 
+echo "[i] DL link: $url"
+
+[ "$url" ] || {
+echo "[e] link not defined"
+exit 1
+}
 
 aria2c \
     --on-bt-download-complete="./hook.btc" \

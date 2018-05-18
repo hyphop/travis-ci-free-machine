@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+## hyphop ##
+
+open F, "curl -s \$(cat bt_get.linkup) 2>/dev/null |";
+undef $/;
+$_ = <F>;
+
+    if ( /===+\s+([^<>\s]+)\s*===+/sgi ) {
+	syswrite(STDOUT, "$1\n");
+	exit 0;
+    }
+
