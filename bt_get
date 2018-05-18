@@ -3,6 +3,8 @@
 ## hyphop ##
 
 url=`cat $0.link 2>/dev/null`
+
+[ "" ] && {
 url_source="bt_get.linkup"
 
 [ -s $url_source ] && {
@@ -10,6 +12,8 @@ url_source="bt_get.linkup"
 	echo "[i] get shared link from $url_source" >&2
 	url=`./bt_get.show_get_link`
     }
+}
+
 }
 
 echo "[i] DL link: $url"
