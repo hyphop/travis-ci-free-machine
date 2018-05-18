@@ -54,7 +54,7 @@ export AV_LOG_FORCE_NOCOLOR=1
 
 	DD="$(dirname "$F")"
 	D2="${DD#$PWD/}"
-	D3="${DD%/*}"
+	D3="${D2%/*}"
 
 	echo "[i] UPDIR $D3"
 
