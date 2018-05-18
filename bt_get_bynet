@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+
+## hyphop ##
+
+undef $/;
+
+my $html_unescape = !$ENV{no_html_unescape} or undef;
+   $html_unescape//=1;
+#  warn "[i] html_unescape $html_unescape\n";
+my $url;
+my $url_from = shift || "$0.link";
+
+#warn "[i] url_from $url_from";
+
+if ( $url_from =~ /(http|https):\/\/\S+/ ) {
+    $url = $url_from;
+}
+else {
+
+    die "[e] link source empty\n" unless -s $url_from;
+
+    open F, $url_from;
+    $url = <F>;
+
+    die "[e] link not defined\n" unless $url;
+
+}
+
+warn "[i] get data from $url\n";
+
+open F, "curl -s \"$url\" 2>/dev/null |";
+
+$_ = <F>;
+
+die "[e] net \n" unless $_;
+
+if (/===+\s+([^<>\s]+)\s*===+/sgi) {
+    my $text = $1;
+    html::unescape $text if $html_unescape;
+    syswrite( STDOUT, "$text\n" );
+    exit 0;
+}
+
+die "[w] text not found\n";
+
+## END
+
+package html;
+
+BEGIN {
+    our %ent = (
+        qw/ amp & gt > lt < quot " apos '/,    #'"
+    # add extra entity there
+        #
+    );
+}
+
+sub unescape($) {
+#   warn "[i] unescape ...\n";
+    $_[0] =~ s{\&((.)(.+?));}{
+    #warn " $1 - $2 - $3 ";
+    '#' eq $2 ? chr($3) : $ent{$1}
+    }eg;
+}

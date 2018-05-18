@@ -1,5 +1,0 @@
-#!/bin/sh
-
-## hyphop ##
-
-curl -s $(cat bt_get.linkup)
