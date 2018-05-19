@@ -192,7 +192,7 @@ echo "[i] remote dir: $DIR" >&2
 echo "[i] UPLOAD DIRS" >&2
 readdir "$@" | $CURL -# \
     $verbose -o- \
-    -g --fail-early -i \
+    -g -i \
     -L \
     -X MKCOL \
     -K- | while read L ; do
@@ -222,7 +222,7 @@ echo "[i] UPLOAD FILES" >&2
 
 readfiles "$@" | $CURL -# \
     $verbose -o- \
-    -g --fail-early -f \
+    -g -f \
     -L \
     -X PUT \
     -K- >/dev/null
