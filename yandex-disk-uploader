@@ -3,47 +3,85 @@
 ## hyphop ##
 
 PROG="$(basename "$0")"
+REP="$PROG"
+SRC_BASE="https://raw.githubusercontent.com/hyphop/$REP/master"
+
+[ "$DIR" ] || DIR=""
+DIR="$DIR/"
+
+[ "$DST" ] || DST="https://webdav.yandex.com"
+[ "$CURL" ] || CURL="curl"
 
 about(){
 
 echo "
-# Yandex Disk Uploader
+Yandex Disk Uploader
+====================
 
-easy way to upload files on yandex drive
+easy way upload files to yandex drive
+from command line / shell
+
+its simple webdav console client suitable for any webdav storage
 
 # USAGE 
 
     $PROG [DIR|FILE]
 
-# CONFIG
+# VARS
 
-    ~/.$PROG.conf
-    ./$PROG.conf
+    [ user, password, user_password, DST, CURL, DIR ] $PROG FILES
+
+variables & default values
+
++ ENV{DST}: \"$DST\" - webdav dst url
++ ENV{CURL}: \"$CURL\" - curl binary
++ ENV{DIR}: \"$DIR\" - remote dir
+...
+
+# CONFIG && config search PATH
+
+./$PROG.conf => .$PROG.conf => ~/.$PROG.conf
 
 its simple curl config format
 configure user:password credential there 
 
 # CONFIG EXAMPLES
 
-    -H "Authorization: Basic YWNjasdasdMHVudC5mcmt3Z2Z2tsYWJvcWs="
-    or
+    -H \"Authorization: Basic YWNjasdasdMHVudC5mcmt3Z2Z2tsYWJvcWs=\"
+or
     -u user:password
 
-# SOURCE
+# SOURCE & INSTALL
 
-https://github.com/hyphop/yandex-disk-uploader
+https://github.com/hyphop/$PROG - source page 
+
+    wget $SRC_BASE/$PROG
+    chmod 0777 $PROG
 
 # REQUIRED
 
-no deps, only cURL
++ curl
+
+# AUTHOR
+
+    ## hyphop ##
 "
 
 }
+
 #verbose="-v"
+#verbose="-i"
 
-[ "$DIR" ] || DIR=""
 
-src=https://webdav.yandex.com
+[ "$1" ] || {
+    about
+    exit 1
+}
+
+#LIST=
+#DIRS=
+#FILES=
+
 
 for a in "$@" ; do
 case $a in
@@ -51,23 +89,31 @@ case $a in
     about
     exit 0
     ;;
+    *)
+    
+    [ -e "$a" ] || {
+	echo "[w] not exist source" >&2
+	exit 1
+    }
+    echo "[i] upload source => $a"
+    ;;
 esac
+
 done
 
-F="$1"
+CURL=`which $CURL`
 
-[ -e "$F" ] || {
-    echo "[e] not exist source" >&2
-    about
+[ ! "$CURL" -o ! -x "$CURL" ] && {
+    echo "[E] curl not work / please check or install it" >&2
     exit 1
 }
 
-echo "[i] upload source => $F => $DIR"
+for CNF in     \
+    "$0.conf"   \
+    "$PROG.conf" \
+    ".$PROG.conf" \
+    ~/".$PROG.conf"\
 
-for CNF in  \
-    ~/".$PROG.conf" \
-    "$0.conf" \
-    "$PROG.conf"
 do
 #    echo "[i] chk cfg $CNF" >&2
 
@@ -78,12 +124,37 @@ do
     CNF=""
 done
 
-[ "$CNF" ] || {
-    echo -n "[e] config not found: "
-    about | grep "\.conf"
-    exit 1
+[ "$user_password" ] || {
+    [ "$user" ] && user_password="$user"
+    [ "$password" ] && user_password="$user_password:$password"
 }
 
+
+userpass(){
+    echo -n "Enter ya-disk USER LOGIN: "
+    read user
+    echo -n "Enter ya-disk USER PASSWORD: "
+    read passw
+    user_password="$user:$passw"
+}
+
+[ "$CNF" ] || {
+    echo -n "[e] config not found: " >&2
+    about | grep "\.conf" >&2
+    # make empty config
+    CNF=~/.$PROG.conf
+    echo "# $PROG - config" > $CNF
+}
+
+
+[ "$user_password" ] || {
+    grep -E -q "\-u|H" "$CNF" 2>/dev/null || {
+    echo "[w] user not defined in $CNF" >&2
+    userpass
+    echo "[i] SAVE USER:PASS to $CNF" >&2
+    echo "-u \"$user_password\"" >> $CNF
+    }
+}
 
 urlencode(){
 # url encode
@@ -93,44 +164,68 @@ urlencode(){
 
 readdir(){
 cat "$CNF"
-find "$1" -type d | while read d ; do
+find -L "$@" -type d | while read d ; do
 echo "[i] $d" >&2
-echo "url = \"$src/$DIR$(urlencode "$d")\"" 
+echo "url = \"$DST/$DIR$(urlencode "$d")\"" 
 done
 }
 
 readfiles(){
 cat "$CNF"
-find "$1" -type f | while read f ; do
+find -L "$@" -type f | while read f ; do
 S="$(stat -L -c%s "$f")"
 echo "[i] $f ($S bytes)" >&2
 echo "upload-file = \"$f\"
-url = \"$src/$DIR$(urlencode "$f")\"
+url = \"$DST/$DIR$(urlencode "$f")\"
 "
 done
 }
 
-echo "[i] UPLOAD DIRS" >&2
+PID=$$
 
-readdir "$F" | curl -# \
+## BEGIN
+
+echo "[i] > $DST" >&2
+echo "[i] remote dir: $DIR" >&2
+
+#[ -d "$F" ] && {
+echo "[i] UPLOAD DIRS" >&2
+readdir "$@" | $CURL -# \
     $verbose -o- \
-    -g \
+    -g --fail-early -i \
     -L \
     -X MKCOL \
-    -K- > /dev/null || {
-    echo "[e] curl fail" >&2
-}
+    -K- | while read L ; do
+    #echo "> $L" >&2
+    # ok
+    #HTTP/1.1 405 Method Not Allowed
+
+    case "$L" in
+	*409\ Conflict*)
+        echo "\n[E] $L" >&2
+	kill $PID
+	exit 1
+	;;
+	*Unauthorized*)
+        echo "\n[E] $L" >&2
+	kill $PID
+	exit 1
+	;;
+    esac
+
+done
+#}
+
+echo ""
 
 echo "[i] UPLOAD FILES" >&2
 
-readfiles "$F" | curl -# \
+readfiles "$@" | $CURL -# \
     $verbose -o- \
-    -g \
+    -g --fail-early -f \
     -L \
     -X PUT \
-    -K- > /dev/null || {
-    echo "[e] curl fail" >&2
-}
+    -K- >/dev/null
 
 # exit 0
 
