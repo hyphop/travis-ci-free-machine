@@ -2,10 +2,10 @@
 
 ## hyphop ##
 
-
 jspp=`which json_pp`
 [ "$jspp" ] || jspp=cat
 
 curl -4 -s ifconfig.co/json | $jspp
+
 #curl -6 -s ifconfig.co/json | $jspp
 
