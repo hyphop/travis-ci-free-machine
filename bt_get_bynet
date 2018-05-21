@@ -28,15 +28,28 @@ else {
 
 warn "[i] get data from $url\n";
 
+if ( $ENV{TEST} ) {
+open F, "<&STDIN";
+} else {
 open F, "curl -s \"$url\" 2>/dev/null |";
-
+}
 $_ = <F>;
 
 die "[e] net \n" unless $_;
 
-if (/===+\s+([^<>\s]+)\s*===+/sgi) {
+#warn $_;
+
+if (/---+\s*([^<>\s]+)\s*---+/sgi) {
     my $text = $1;
     html::unescape $text if $html_unescape;
+    syswrite( STDOUT, "$text\n" );
+    exit 0;
+}
+
+if (/(\_{3,})\s*(.+?)\1/sgi) {
+#    my $text = $2;
+    use MIME::Base64;
+    my $text = MIME::Base64::decode($2);
     syswrite( STDOUT, "$text\n" );
     exit 0;
 }
