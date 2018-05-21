@@ -16,7 +16,7 @@ done
 #./ffmpeg
 ./myip
 
-upload2cloud=""https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/upload2cloud"
+upload2cloud="https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/upload2cloud"
 
 wget -O $upload2cloud 
 
