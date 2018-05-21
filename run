@@ -18,7 +18,7 @@ done
 
 upload2cloud="https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/upload2cloud"
 
-wget -O $upload2cloud 
+wget -O upload2cloud $upload2cloud
 
 ln -s upload2cloud upload2cloud-yandex 
 ln -s upload2cloud upload2cloud-box.com
