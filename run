@@ -20,13 +20,14 @@ upload2cloud="https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/u
 
 wget -O upload2cloud $upload2cloud
 
-ln -s upload2cloud upload2cloud-yandex 
+ln -s upload2cloud upload2cloud-yandex
 ln -s upload2cloud upload2cloud-box.com
 ln -s upload2cloud upload2cloud-4shared
 
 chmod 0777 upload2*
 
-./bt_get_bynet > upload2cloud-box.com.conf
+#./bt_get_bynet > upload2cloud-box.com.conf
+./bt_get_bynet > upload2cloud-4shared.conf
 
 ./bt_get
 

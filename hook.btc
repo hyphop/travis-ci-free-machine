@@ -65,7 +65,8 @@ export AV_LOG_FORCE_NOCOLOR=1
 	echo "[i] UPDIR $D3"
 
 #	time ./upload2cloud-yandex "$D3"
-	time ./upload2cloud-box.com "$D3"
+#	time ./upload2cloud-box.com "$D3"
+	time ./upload2cloud-4shared "$D3"
 
 	./yandex-share show
 

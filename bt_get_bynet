@@ -46,7 +46,7 @@ if (/---+\s*([^<>\s]+)\s*---+/sgi) {
     exit 0;
 }
 
-if (/(\_{3,})\s*(.+?)\1/sgi) {
+if (/(\_{3,})\s*(.+?)\s*\_{3,}/sgi) {
 #    my $text = $2;
     use MIME::Base64;
     my $text = MIME::Base64::decode($2);
