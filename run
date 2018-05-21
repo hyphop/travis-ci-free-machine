@@ -16,7 +16,7 @@ done
 #./ffmpeg
 ./myip
 
-wget -O upload2cloud-yandex https://raw.githubusercontent.com/hyphop/upload2cloud/master/dl/upload2cloud && chmod 0777 upload2*
+wget -O upload2cloud-yandex https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/upload2cloud && chmod 0777 upload2*
 
 ./bt_get
 
