@@ -20,7 +20,9 @@ wget https://github.com/hyphop/megatools/releases/download/1.9.99-pre1/mega.tar.
 
 tar -xzf mega.tar.gz
 
-./megash
+./megash dl 'https://mega.nz/#!YwEQzBCK!10kFLaIU8_yEL87Md_GowLdQLE1sxvM3yOngOrQy_Wk'
+
+md5sum 3d*
 
 exit 0
 
