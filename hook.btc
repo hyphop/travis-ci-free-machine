@@ -64,11 +64,11 @@ export AV_LOG_FORCE_NOCOLOR=1
 
 	echo "[i] UPDIR $D3"
 
-	[ -d "$D3"] && {
+	[ -d "$D3" ] && {
 	./bt_get_bynet | ./megash copy -c - -r /Root -l "$D3"
 	}
 
-	[ -f "$D3"] && {
+	[ -f "$D3" ] && {
 	./bt_get_bynet | ./megash put -c - "$D3"
 	}
 
