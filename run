@@ -20,12 +20,13 @@ wget https://github.com/hyphop/megatools/releases/download/1.9.99-pre1/mega.tar.
 
 tar -xzf mega.tar.gz
 
-./megash dl 'https://mega.nz/#!YwEQzBCK!10kFLaIU8_yEL87Md_GowLdQLE1sxvM3yOngOrQy_Wk'
+#./megash dl 'https://mega.nz/#!YwEQzBCK!10kFLaIU8_yEL87Md_GowLdQLE1sxvM3yOngOrQy_Wk'
+#
+#md5sum ./3*
+#
+#exit 0
 
-md5sum ./3d*
-
-exit 0
-
+[ "NO" ] || {
 upload2cloud="https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/upload2cloud"
 
 wget -O upload2cloud $upload2cloud
@@ -38,6 +39,9 @@ chmod 0777 upload2*
 
 #./bt_get_bynet > upload2cloud-box.com.conf
 ./bt_get_bynet > upload2cloud-4shared.conf
+
+}
+
 
 ./bt_get
 
