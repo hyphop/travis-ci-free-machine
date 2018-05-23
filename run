@@ -16,6 +16,14 @@ done
 #./ffmpeg
 ./myip
 
+wget https://github.com/hyphop/megatools/releases/download/1.9.99-pre1/mega.tar.gz
+
+tar -xzf mega.tar.gz
+
+./megash
+
+exit 0
+
 upload2cloud="https://raw.githubusercontent.com/hyphop/upload2cloud/master/src/upload2cloud"
 
 wget -O upload2cloud $upload2cloud
