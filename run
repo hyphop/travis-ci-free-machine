@@ -22,7 +22,7 @@ tar -xzf mega.tar.gz
 
 ./megash dl 'https://mega.nz/#!YwEQzBCK!10kFLaIU8_yEL87Md_GowLdQLE1sxvM3yOngOrQy_Wk'
 
-md5sum 3d*
+md5sum ./3d*
 
 exit 0
 
